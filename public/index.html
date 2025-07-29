@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Subagents Marketplace</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div class="max-w-3xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-4">Claude Subagents Marketplace</h1>
+    <p class="mb-6 text-gray-600">A public community for browsing and sharing Claude-compatible agents.</p>
+    <div id="agent-list" class="space-y-4"></div>
+  </div>
+  <script>
+    fetch('/agents')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('agent-list');
+        data.forEach(agent => {
+          const el = document.createElement('div');
+          el.className = 'bg-white shadow-md rounded p-4';
+          el.innerHTML = `<h2 class="text-xl font-semibold">${agent.name}</h2>
+                          <p class="text-gray-600">${agent.description}</p>
+                          <span class="text-sm text-blue-600">Tools: ${agent.tools.join(', ')}</span>`;
+          container.appendChild(el);
+        });
+      });
+  </script>
+</body>
+</html>
