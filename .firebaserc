@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "taajirah"
+  },
+  "targets": {
+    "taajirah": {
+      "hosting": {
+        "subagents": [
+          "subagents"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

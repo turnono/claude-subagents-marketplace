@@ -1,0 +1,305 @@
+<html>
+
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
+
+    <title>Subagent Details - Claude Subagents Marketplace</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+
+<body>
+    <div class="relative flex size-full min-h-screen flex-col bg-[#121416] dark group/design-root overflow-x-hidden"
+        style='font-family: Inter, "Noto Sans", sans-serif;'>
+        <div class="layout-container flex h-full grow flex-col">
+            <header
+                class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#2c3135] px-10 py-3">
+                <div class="flex items-center gap-8">
+                    <div class="flex items-center gap-4 text-white">
+                        <div class="size-4">
+                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z"
+                                    fill="currentColor"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Subagent Hub</h2>
+                    </div>
+                    <div class="flex items-center gap-9">
+                        <a class="text-white text-sm font-medium leading-normal" href="index.html">Home</a>
+                        <a class="text-white text-sm font-medium leading-normal" href="index.html">Explore</a>
+                        <a class="text-white text-sm font-medium leading-normal" href="#">Docs</a>
+                    </div>
+                </div>
+                <div class="flex flex-1 justify-end gap-8">
+                    <button
+                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#dce8f3] text-[#121416] text-sm font-bold leading-normal tracking-[0.015em]"
+                        id="upload-btn">
+                        <span class="truncate">Upload</span>
+                    </button>
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAkjW6WDCrGxOVMCXVqJf5lNN4XvIJrgKCDuDKmnJw8sBwyG5hIXeQqmprRJlUJQof_mWHCQkTzDvsq30sRbDayh2gPY-6JbD80BaTWiQWY8B56zaS8brhcTI12qcfoPEh_cFpleFIOml3cklNeQzNw6ZZbQ8Ds25OQW6nZFpw0k6iNs5BeMJSNRMTu6WrZ93AFvK6v0ULY-EC2UjlG39GXggTbvuKAGvb0F0CLKOFHNuYthBwuMpEN7u3hK6Hu-yDqQ2WeSBr42p_H");'>
+                    </div>
+                </div>
+            </header>
+            <div class="px-40 flex flex-1 justify-center py-5">
+                <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+                    <!-- Loading State -->
+                    <div id="loading" class="flex justify-center items-center py-8">
+                        <div class="text-white text-lg">Loading subagent details...</div>
+                    </div>
+
+                    <!-- Error State -->
+                    <div id="error" class="hidden flex justify-center items-center py-8">
+                        <div class="text-red-400 text-lg">Failed to load subagent details. Please try again.</div>
+                    </div>
+
+                    <!-- Subagent Details -->
+                    <div id="subagent-details" class="hidden">
+                        <div class="flex flex-wrap gap-2 p-4">
+                            <a class="text-[#a2abb3] text-base font-medium leading-normal" href="index.html">Explore</a>
+                            <span class="text-[#a2abb3] text-base font-medium leading-normal">/</span>
+                            <span class="text-white text-base font-medium leading-normal" id="breadcrumb-name">Subagent
+                                Name</span>
+                        </div>
+                        <div class="flex flex-wrap justify-between gap-3 p-4">
+                            <div class="flex min-w-72 flex-col gap-3">
+                                <p class="text-white tracking-light text-[32px] font-bold leading-tight"
+                                    id="subagent-name">Subagent Name</p>
+                                <p class="text-[#a2abb3] text-sm font-normal leading-normal" id="subagent-description">
+                                    A brief description of the subagent's functionality and purpose.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="pb-3">
+                            <div class="flex border-b border-[#40484f] px-4 gap-8">
+                                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-white text-white pb-[13px] pt-4"
+                                    href="#" id="overview-tab">
+                                    <p class="text-white text-sm font-bold leading-normal tracking-[0.015em]">Overview
+                                    </p>
+                                </a>
+                                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#a2abb3] pb-[13px] pt-4"
+                                    href="#" id="yaml-tab">
+                                    <p class="text-[#a2abb3] text-sm font-bold leading-normal tracking-[0.015em]">YAML
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Overview Content -->
+                        <div id="overview-content">
+                            <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+                                Description</h3>
+                            <p class="text-white text-base font-normal leading-normal pb-3 pt-1 px-4"
+                                id="detailed-description">
+                                This subagent is designed to assist with various tasks. It provides comprehensive
+                                functionality and can be easily integrated into your workflows.
+                            </p>
+                            <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+                                Tools</h3>
+                            <div class="flex gap-3 p-3 flex-wrap pr-4" id="tools-container">
+                                <!-- Tools will be dynamically inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- YAML Content -->
+                        <div id="yaml-content" class="hidden">
+                            <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+                                YAML Configuration</h3>
+                            <div class="bg-[#1e2124] rounded-lg p-4 mx-4 my-2">
+                                <pre class="text-white text-sm font-mono overflow-x-auto" id="yaml-config">
+# YAML configuration will be displayed here
+                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API Configuration
+        const API_BASE_URL = 'https://claude-subagents-api-855515190257.us-central1.run.app';
+
+        // Get subagent name from URL parameters
+        function getSubagentName() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('name');
+        }
+
+        // Load subagent details
+        async function loadSubagentDetails() {
+            const subagentName = getSubagentName();
+
+            if (!subagentName) {
+                showError('No subagent specified');
+                return;
+            }
+
+            try {
+                showLoading();
+
+                const response = await fetch(`${API_BASE_URL}/agents/${encodeURIComponent(subagentName)}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const subagent = await response.json();
+                displaySubagentDetails(subagent);
+                hideLoading();
+
+            } catch (error) {
+                console.error('Error loading subagent details:', error);
+                showError('Failed to load subagent details');
+            }
+        }
+
+        // Display subagent details
+        function displaySubagentDetails(subagent) {
+            // Update page title
+            document.title = `${subagent.name} - Claude Subagents Marketplace`;
+
+            // Update breadcrumb and name
+            document.getElementById('breadcrumb-name').textContent = subagent.name;
+            document.getElementById('subagent-name').textContent = subagent.name;
+            document.getElementById('subagent-description').textContent = subagent.description;
+            document.getElementById('detailed-description').textContent = subagent.content || subagent.description;
+
+            // Display tools
+            const toolsContainer = document.getElementById('tools-container');
+            toolsContainer.innerHTML = subagent.tools.map(tool =>
+                `<div class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-[#2c3135] pl-4 pr-4">
+           <p class="text-white text-sm font-medium leading-normal">${tool}</p>
+         </div>`
+            ).join('');
+
+            // Generate YAML configuration
+            const yamlConfig = `---
+name: ${subagent.name}
+description: ${subagent.description}
+tools: ${JSON.stringify(subagent.tools, null, 2)}
+---
+
+${subagent.content || '# Subagent content goes here'}`;
+
+            document.getElementById('yaml-config').textContent = yamlConfig;
+        }
+
+        // Tab switching functionality
+        function setupTabs() {
+            const overviewTab = document.getElementById('overview-tab');
+            const yamlTab = document.getElementById('yaml-tab');
+            const overviewContent = document.getElementById('overview-content');
+            const yamlContent = document.getElementById('yaml-content');
+
+            overviewTab.addEventListener('click', (e) => {
+                e.preventDefault();
+                overviewTab.classList.add('border-b-white', 'text-white');
+                overviewTab.classList.remove('border-b-transparent', 'text-[#a2abb3]');
+                yamlTab.classList.remove('border-b-white', 'text-white');
+                yamlTab.classList.add('border-b-transparent', 'text-[#a2abb3]');
+
+                overviewContent.classList.remove('hidden');
+                yamlContent.classList.add('hidden');
+            });
+
+            yamlTab.addEventListener('click', (e) => {
+                e.preventDefault();
+                yamlTab.classList.add('border-b-white', 'text-white');
+                yamlTab.classList.remove('border-b-transparent', 'text-[#a2abb3]');
+                overviewTab.classList.remove('border-b-white', 'text-white');
+                overviewTab.classList.add('border-b-transparent', 'text-[#a2abb3]');
+
+                yamlContent.classList.remove('hidden');
+                overviewContent.classList.add('hidden');
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            setupTabs();
+
+            // Download button
+            document.getElementById('download-btn').addEventListener('click', async () => {
+                const subagentName = getSubagentName();
+                try {
+                    const response = await fetch(`${API_BASE_URL}/agents/${encodeURIComponent(subagentName)}/download`);
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `${subagentName}.md`;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
+                    } else {
+                        alert('Failed to download subagent');
+                    }
+                } catch (error) {
+                    console.error('Error downloading subagent:', error);
+                    alert('Error downloading subagent');
+                }
+            });
+
+            // Like button
+            document.getElementById('like-btn').addEventListener('click', async () => {
+                const subagentName = getSubagentName();
+                try {
+                    const response = await fetch(`${API_BASE_URL}/like/${encodeURIComponent(subagentName)}`, {
+                        method: 'POST'
+                    });
+                    if (response.ok) {
+                        alert('Subagent liked successfully!');
+                    } else {
+                        alert('Failed to like subagent');
+                    }
+                } catch (error) {
+                    alert('Error liking subagent');
+                }
+            });
+
+            // Report button
+            document.getElementById('report-btn').addEventListener('click', () => {
+                alert('Report functionality would open a form to report issues with this subagent.');
+            });
+
+            // Upload button
+            document.getElementById('upload-btn').addEventListener('click', () => {
+                alert('Upload functionality would open a form to submit new subagents.');
+            });
+        }
+
+        // UI state management
+        function showLoading() {
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('error').classList.add('hidden');
+            document.getElementById('subagent-details').classList.add('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('subagent-details').classList.remove('hidden');
+        }
+
+        function showError(message) {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('error').classList.remove('hidden');
+            document.getElementById('subagent-details').classList.add('hidden');
+            document.getElementById('error').innerHTML = `<div class="text-red-400 text-lg">${message}</div>`;
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function () {
+            loadSubagentDetails();
+            setupEventListeners();
+        });
+    </script>
+</body>
+
+</html>

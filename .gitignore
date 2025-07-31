@@ -1,0 +1,59 @@
+.env
+.DS_Store
+__pycache__/
+.venv/
+# Ignore general env files
+.env.*
+*.env
+env/
+env.*
+!.env.example
+# Ignore all environment variable files and folders
+
+frontend/dist/
+frontend/node_modules/
+.firebase/
+.vscode/
+
+# Service account and secret files
+taajirah-agents-service-account.json
+client_secret_*.json
+
+# Database files
+sessions.db
+firestore-debug.log
+firebase-debug.log
+ui-debug.log
+local_sessions.db
+
+# Debugging and test files
+*_STATUS.md
+*_REPORT.md
+*_VERIFICATION.md
+MEMORY_STATUS.md
+FINAL_*.md
+test_*.py
+test_*.txt
+memory_uploader.py
+*_debug.py
+*_test.py
+
+# Evaluation reports and generated output
+evals/eval_report_*.json
+evals/*_results.json
+evals/*_output.txt
+evals/*_log.txt
+evals/results/
+evals/output/
+evals/logs/
+
+deployment/
+
+
+
+evals/callback_eval_report_*.json
+.ruff_cache/
+evals/*.json
+cloud-functions/node_modules/
+api/logs/
+logs/
