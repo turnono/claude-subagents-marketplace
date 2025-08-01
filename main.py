@@ -106,16 +106,17 @@ def is_valid_subagent_file(content: str) -> bool:
         name_lower = data['name'].lower()
         description_lower = data['description'].lower()
         
-        # Must contain subagent-related keywords
-        subagent_keywords = ['subagent', 'claude', 'anthropic', 'agent', 'assistant', 'tool']
-        has_subagent_keyword = any(keyword in name_lower or keyword in description_lower 
-                                 for keyword in subagent_keywords)
-        
-        if not has_subagent_keyword:
+        # More flexible validation - accept any file with name and description
+        # that has meaningful content and looks like an agent
+        if len(body.strip()) < 50:  # At least 50 characters of content
             return False
         
-        # Must have meaningful content
-        if len(body.strip()) < 50:  # At least 50 characters of content
+        # Check if it has agent-like content (instructions, focus areas, etc.)
+        body_lower = body.lower()
+        agent_indicators = ['you are', 'focus', 'approach', 'output', 'specializing', 'expertise']
+        has_agent_content = any(indicator in body_lower for indicator in agent_indicators)
+        
+        if not has_agent_content:
             return False
         
         return True
@@ -484,11 +485,12 @@ def import_from_github():
                         "description": data['description'],
                         "tools": data['tools'],
                         "submitted_by": "import-script",
-                            "likes": 0,
-                            "source_url": url
-                        })
-                    imported.append(data['name'])
-                    print(f"✅ Imported: {data['name']}")
+                        "likes": 0,
+                        "source_url": url
+                    })
+                
+                imported.append(data['name'])
+                print(f"✅ Imported: {data['name']}")
             else:
                 failed.append(url)
                 print(f"❌ Failed to fetch {url}: {response.status_code}")
@@ -750,4 +752,16 @@ def background_scheduler():
         schedule.run_pending()
         time.sleep(60)
 
+# Import agents on startup
+def startup_import():
+    """Import agents when the service starts up"""
+    try:
+        print("🚀 Starting up - importing agents...")
+        result = import_from_github()
+        print(f"✅ Startup import complete: {len(result['imported'])} agents imported")
+    except Exception as e:
+        print(f"⚠️ Startup import failed: {str(e)}")
+
+# Start background scheduler and initial import
 threading.Thread(target=background_scheduler, daemon=True).start()
+threading.Thread(target=startup_import, daemon=True).start()
